@@ -1,22 +1,34 @@
 <!DOCTYPE HTML>
 <html>
-	<title>Terrorcell's portfolio</title>
+	<title>Callum's portfolio</title>
 	<head>
 		<link rel="stylesheet" type="text/css" href="index.css">
+		<script>
+			//var about = "<textarea readonly=&quot;true&quot;>my about me goes here</textarea>";
+		
+			function clickAbout()
+			{
+				document.getElementById("main_inner").innerHTML="my about me goes here</br>Blog: <a href=&quot;http://www.thefinalalert.wordpress.com&quot; target=&quot;_blank&quot;>thefinalalert.wordpress.com</a>";
+			}
+			
+			function clickProjects()
+			{
+				document.getElementById("main_inner").innerHTML="cascading project screenshots/names go here, each linking to a name+description+gallery + whatever else needs doing";
+			}
+		</script>
 	</head>
 	<body>
 		<center>
 			<div id="header">
-			<img src="images\header.png" />
-				
+				<img src="images\header.png" />
 			</div>
 			<div id="main">
+				<div id="main_controls">
+					<div id="bAbout" onclick="clickAbout()">About</div>
+					<div id="bProjects" onclick="clickProjects()">Projects</div>
+				</div>
 				<div id="main_inner">
-					lol</br>
-					this</br>
-					is</br>
-					a</br>
-					test</br>
+					start off with the about me
 				</div>
 			</div>
 		</center>
