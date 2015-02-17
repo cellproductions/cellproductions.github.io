@@ -9,11 +9,26 @@
 			[
 				{
 					name: 'Krypta Editor',
-					link: '../KryptaEditorQT/screenshots/'
+					links: [
+						'../KryptaEditorQT/screenshots/1.png',
+						'../KryptaEditorQT/screenshots/2.png',
+						'../KryptaEditorQT/screenshots/3.png',
+						'../KryptaEditorQT/screenshots/4.png',
+						'../KryptaEditorQT/screenshots/5.png',
+						'../KryptaEditorQT/screenshots/6.png',
+						'../KryptaEditorQT/screenshots/7.png',
+						'../KryptaEditorQT/screenshots/8.png'
+					]
 				},
 				{
 					name: 'System Command',
-					link: '../7dRTS/screenshots/'
+					links: [
+						'../7dRTS/screenshots/screen1.png',
+						'../7dRTS/screenshots/screen2.png',
+						'../7dRTS/screenshots/screen3.png',
+						'../7dRTS/screenshots/screen4.png',
+						'../7dRTS/screenshots/screen5.png',
+					]
 				}
 			];
 			
@@ -28,18 +43,14 @@
 				for (var i = 0; i < gProjects.length; ++i)
 				{
 					var name = gProjects[i].name;
-					var link = gProjects[i].link;
-					var inner  = '<div class="project">' + name;
-					$.ajax({
-						url: link,
-						success: function (data) {
-							$(data).find("a:contains(.png)").each(function () {
-								var filename = this.href;
-								inner += '<img src="' + link + filename + '"></img>';
-							});
-						}
-					});
+					var inner  = '<div class="project"><p>' + name + '</p>';
+					for (var n = 0; n < gProjects[i].links.length; ++n)
+					{
+						var link = gProjects[i].links[n];
+						inner += '<img src="' + link + '" />';
+					}
 					inner += '</div>';
+					finalHtml += inner;
 				}
 				$("#main").html(finalHtml);
 			}
@@ -48,10 +59,9 @@
 	<body onload="init()">
 		<center>
 			<div id="header">
-				<img src="./images/header.png" />
+				<img id="banner" src="./images/header.png" />
 			</div>
-			<div id="main">
-			</div>
+			<div id="main"></div>
 		</center>
 	</body>
 </html>
