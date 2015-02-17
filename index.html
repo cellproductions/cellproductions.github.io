@@ -9,54 +9,79 @@
 			[
 				{
 					name: 'Krypta Editor',
+					repo: 'http://github.com/terrorcell/KryptaEditorQT',
+					titlePath: './images/KryptaEditorQT/title.png',
 					links: [
-						'../KryptaEditorQT/screenshots/1.png',
-						'../KryptaEditorQT/screenshots/2.png',
-						'../KryptaEditorQT/screenshots/3.png',
-						'../KryptaEditorQT/screenshots/4.png',
-						'../KryptaEditorQT/screenshots/5.png',
-						'../KryptaEditorQT/screenshots/6.png',
-						'../KryptaEditorQT/screenshots/7.png',
-						'../KryptaEditorQT/screenshots/8.png'
-					]
+						'./images/KryptaEditorQT/1.png',
+						'./images/KryptaEditorQT/2.png',
+						'./images/KryptaEditorQT/3.png',
+						'./images/KryptaEditorQT/4.png',
+						'./images/KryptaEditorQT/5.png',
+						'./images/KryptaEditorQT/6.png',
+						'./images/KryptaEditorQT/7.png',
+						'./images/KryptaEditorQT/8.png',
+					],
+					index: 0
 				},
 				{
 					name: 'System Command',
+					repo: 'http://github.com/terrorcell/7dRTS',
+					titlePath: './images/7dRTS/title.png',
 					links: [
-						'../7dRTS/screenshots/screen1.png',
-						'../7dRTS/screenshots/screen2.png',
-						'../7dRTS/screenshots/screen3.png',
-						'../7dRTS/screenshots/screen4.png',
-						'../7dRTS/screenshots/screen5.png',
-					]
+						'./images/7dRTS/1.png',
+						'./images/7dRTS/2.png',
+						'./images/7dRTS/3.png',
+						'./images/7dRTS/4.png',
+						'./images/7dRTS/5.png'
+					],
+					index: 3
 				}
 			];
 			
-			function clickProjects()
-			{
-				document.getElementById("main_inner").innerHTML='cascading project screenshots/names go here, each linking to a name+description+gallery + whatever else needs doing';
-			}
-			
-			function init()
+			$(document).ready(function() 
 			{
 				var finalHtml = '';
 				for (var i = 0; i < gProjects.length; ++i)
 				{
-					var name = gProjects[i].name;
-					var inner  = '<div class="project"><p>' + name + '</p>';
-					for (var n = 0; n < gProjects[i].links.length; ++n)
-					{
-						var link = gProjects[i].links[n];
-						inner += '<img src="' + link + '" />';
-					}
-					inner += '</div>';
-					finalHtml += inner;
+					var p = gProjects[i];
+					finalHtml += '<div class="project">';
+					finalHtml += '<a class="prjtitle" href="' + p.repo + '">';
+					finalHtml += '<img class="prjtitle" src="' + p.titlePath + '" /></a></br>';
+					finalHtml += '<img class="prjimg" id=prj' + i + ' src="' + p.links[p.index] + '" />';
+					finalHtml += '</div>';
 				}
-				$("#main").html(finalHtml);
-			}
+				$('#main').html(finalHtml);
+				var width = $(window).width() / 4;
+				var height = $(window).width() / 5;
+				$('.prjimg').width(width + 'px');
+				$('.prjimg').height(height + 'px');
+				
+				window.setInterval(function()
+				{
+					$('img.prjimg').each(function(gindex)
+					{
+						var index = gProjects[gindex].index + 1;
+						if (index >= gProjects[gindex].links.length)
+							index = 0;
+						$(this).attr('src', gProjects[gindex].links[index]);
+						gProjects[gindex].index = index;
+					});
+				}, 3000);
+			});
+			
+			$(document).on('click', 'img.prjimg', function()
+			{
+				var id = $(this).attr("id");
+				var gindex = Number(id.slice(-1));
+				var index = gProjects[gindex].index + 1;
+				if (index >= gProjects[gindex].links.length)
+					index = 0;
+				$(this).attr('src', gProjects[gindex].links[index]);
+				gProjects[gindex].index = index;
+			});
 		</script>
 	</head>
-	<body onload="init()">
+	<body>
 		<center>
 			<div id="header">
 				<img id="banner" src="./images/header.png" />

@@ -35,7 +35,7 @@ body
 
 .project
 {
-	text-align: inherit;
+	text-align: center;
 	background-color: #aaaaaa;
 	border-top-left-radius: 10px; 
 	border-top-right-radius: 10px; 
@@ -43,7 +43,18 @@ body
 	border-bottom-left-radius: 10px;
 	
 	display: table-cell;
-	width: 20%;
-	padding: 4px 0px 4px 0px;
+	padding: 4px 10px 10px 10px;
 	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 28px;
+}
+
+.prjtitle
+{
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.prjtitle:hover
+{
+	color: #dddddd;
 }
