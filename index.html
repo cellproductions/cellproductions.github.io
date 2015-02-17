@@ -11,6 +11,7 @@
 					name: 'Krypta Editor',
 					repo: 'http://github.com/terrorcell/KryptaEditorQT',
 					titlePath: './images/KryptaEditorQT/title.png',
+					hoverPath: './images/KryptaEditorQT/title_over.png',
 					links: [
 						'./images/KryptaEditorQT/1.png',
 						'./images/KryptaEditorQT/2.png',
@@ -27,6 +28,7 @@
 					name: 'System Command',
 					repo: 'http://github.com/terrorcell/7dRTS',
 					titlePath: './images/7dRTS/title.png',
+					hoverPath: './images/7dRTS/title_over.png',
 					links: [
 						'./images/7dRTS/1.png',
 						'./images/7dRTS/2.png',
@@ -45,8 +47,8 @@
 				{
 					var p = gProjects[i];
 					finalHtml += '<div class="project">';
-					finalHtml += '<a class="prjtitle" href="' + p.repo + '">';
-					finalHtml += '<img class="prjtitle" src="' + p.titlePath + '" /></a></br>';
+					finalHtml += '<a href="' + p.repo + '">';
+					finalHtml += '<img class="prjtitle" id=prj' + i + ' src="' + p.titlePath + '" /></a></br>';
 					finalHtml += '<img class="prjimg" id=prj' + i + ' src="' + p.links[p.index] + '" />';
 					finalHtml += '</div>';
 				}
@@ -79,14 +81,26 @@
 				$(this).attr('src', gProjects[gindex].links[index]);
 				gProjects[gindex].index = index;
 			});
+			
+			$(document).on('mouseenter', 'img.prjtitle', function()
+			{
+				var id = $(this).attr("id");
+				var gindex = Number(id.slice(-1));
+				$(this).attr('src', gProjects[gindex].hoverPath);
+			});
+			
+			$(document).on('mouseleave', 'img.prjtitle', function()
+			{
+				var id = $(this).attr("id");
+				var gindex = Number(id.slice(-1));
+				$(this).attr('src', gProjects[gindex].titlePath);
+			});
 		</script>
 	</head>
 	<body>
-		<center>
-			<div id="header">
-				<img id="banner" src="./images/header.png" />
-			</div>
-			<div id="main"></div>
-		</center>
+		<div id="header">
+			<img id="banner" src="./images/header.png" />
+		</div>
+		<div id="main"></div>
 	</body>
 </html>
