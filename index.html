@@ -7,8 +7,14 @@
 		<script>
 			var gProjects = 
 			[
-				'../KryptaEditorQT/screenshots/',
-				'../7dRTS/screenshots/'
+				{
+					name: 'Krypta Editor',
+					link: '../KryptaEditorQT/screenshots/'
+				},
+				{
+					name: 'System Command',
+					link: '../7dRTS/screenshots/'
+				}
 			];
 			
 			function clickProjects()
@@ -18,30 +24,31 @@
 			
 			function init()
 			{
-				var inner = '';
+				var finalHtml = '';
 				for (var i = 0; i < gProjects.length; ++i)
 				{
-					//inner += '<div class="project">' + gProjects[i] + '</div>';
+					var name = gProjects[i].name;
+					var link = gProjects[i].link;
+					var inner  = '<div class="project">' + name;
 					$.ajax({
-						//This will retrieve the contents of the folder if the folder is configured as 'browsable'
-						url: gProjects[i],
+						url: link,
 						success: function (data) {
-							//Lsit all png file names in the page
 							$(data).find("a:contains(.png)").each(function () {
 								var filename = this.href;
-								$("#main").append($("<img src=" + gProjects[i] + filename + "></img>"));
+								inner += '<img src="' + link + filename + '"></img>';
 							});
 						}
 					});
+					inner += '</div>';
 				}
-				//$('#main').html(inner);
+				$("#main").html(finalHtml);
 			}
 		</script>
 	</head>
 	<body onload="init()">
 		<center>
 			<div id="header">
-				<img src="images\header.png" />
+				<img src="./images/header.png" />
 			</div>
 			<div id="main">
 			</div>
