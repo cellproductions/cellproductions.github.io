@@ -1,35 +1,49 @@
 <!DOCTYPE HTML>
 <html>
-	<title>Callum's portfolio</title>
+	<title>Callum's Portfolio</title>
 	<head>
 		<link rel="stylesheet" type="text/css" href="index.css">
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script>
-			//var about = "<textarea readonly=&quot;true&quot;>my about me goes here</textarea>";
-		
-			function clickAbout()
-			{
-				document.getElementById("main_inner").innerHTML='my about me goes here</br>Blog: <a href="http://www.thefinalalert.wordpress.com" target="_blank">thefinalalert.wordpress.com</a>';
-			}
+			var gProjects = 
+			[
+				'../KryptaEditorQT/screenshots/',
+				'../7dRTS/screenshots/'
+			];
 			
 			function clickProjects()
 			{
 				document.getElementById("main_inner").innerHTML='cascading project screenshots/names go here, each linking to a name+description+gallery + whatever else needs doing';
 			}
+			
+			function init()
+			{
+				var inner = '';
+				for (var i = 0; i < gProjects.length; ++i)
+				{
+					//inner += '<div class="project">' + gProjects[i] + '</div>';
+					$.ajax({
+						//This will retrieve the contents of the folder if the folder is configured as 'browsable'
+						url: gProjects[i],
+						success: function (data) {
+							//Lsit all png file names in the page
+							$(data).find("a:contains(.png)").each(function () {
+								var filename = this.href;
+								$("#main").append($("<img src=" + gProjects[i] + filename + "></img>"));
+							});
+						}
+					});
+				}
+				//$('#main').html(inner);
+			}
 		</script>
 	</head>
-	<body>
+	<body onload="init()">
 		<center>
 			<div id="header">
 				<img src="images\header.png" />
 			</div>
 			<div id="main">
-				<div id="main_controls">
-					<div id="bAbout" onclick="clickAbout()">About</div>
-					<div id="bProjects" onclick="clickProjects()">Projects</div>
-				</div>
-				<div id="main_inner">
-					start off with the about me
-				</div>
 			</div>
 		</center>
 	</body>
