@@ -16,19 +16,15 @@ body
 	padding: 100px;
 }
 
-#header
+#banner
 {
-
+	width:55%;
 }
 
 #main
 {
-	text-align: center;
-	border-top-left-radius: 10px; 
-	border-top-right-radius: 10px; 
-	border-bottom-right-radius: 10px; 
-	border-bottom-left-radius: 10px; 
-	padding: 0px 20px 20px 20px;
+	display: table;
+	border-spacing: 10px;
 }
 
 #bProjects:hover
@@ -46,10 +42,8 @@ body
 	border-bottom-right-radius: 10px; 
 	border-bottom-left-radius: 10px;
 	
-	display: inline-block;
-	margin-left:auto;
-	margin-right:auto;
-	width: 400px;
+	display: table-cell;
+	width: 20%;
 	padding: 4px 0px 4px 0px;
 	font-family: "Lucida Console", Monaco, monospace;
 }
