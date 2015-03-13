@@ -3,11 +3,12 @@
 	<title>Callum's Portfolio</title>
 	<head>
 		<link rel="stylesheet" type="text/css" href="index.css">
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="./jquery-2.1.3.min.js"></script>
 		<script>
 			var imgExt = '.png';
 			var hoverExt = '_over' + imgExt;
 			var downloadImgPath = './images/download';
+			var blogImgPath = "./images/blog";
 			var gProjects = 
 			[
 				{
@@ -25,7 +26,8 @@
 						'./images/KryptaEditorQT/8.png',
 					],
 					index: 0,
-					download: ''
+					download: '',
+					description: 'A detailed map/campaign editor for a 2D action/puzzle game called Krypta. Includes the floor designer, entity properties editing, animation creation and management, and an audio manager. Created for my final university project (receiving a High Distinction) and written in C++ using Qt and Krypta2D (a fast, lightweight, 2D game development framework written in C++, featuring thread support, networking, graphics, audio, as well as file system and window management) developed by myself and one other developer. December 2014.'
 				},
 				{
 					name: 'System Command',
@@ -39,7 +41,8 @@
 						'./images/7dRTS/5.png'
 					],
 					index: 3,
-					download: ''
+					download: 'https://dl.dropboxusercontent.com/u/28551411/7drts.zip',
+					description: 'A 2D real-time strategy game made for a Ludum Dare mini competition (the 7dRTS competition) where developers were to create an RTS game within seven days. Features randomly generated networks of stars, basic AI, and basic resource gathering through the capturing of stars, as well as its own (very small) soundtrack. Written in Java using Slick2D (lwjgl, jogg, jorbis) and my own Java library used in 2D game development. August 2013.'
 				},
 				{
 					name: 'Notes Oblitus',
@@ -53,7 +56,8 @@
 						'./images/NotesOblitus/5.png'
 					],
 					index: 0,
-					download: 'https://dl.dropboxusercontent.com/u/28551411/NotesOblitus.zip'
+					download: 'https://dl.dropboxusercontent.com/u/28551411/NotesOblitus.zip',
+					description: 'A todo/note manager for projects involving any language. Features manual/automatic project scanning, saving/loading of settings for individual projects, search options, tag/extension/file/directory filters, note previews, opening notes in external editors, statistics for scanned files/directories/tags, exporting of discovered notes and statistics into different formats, automatic updating, proxy options, project-wide note-style changing and deletion, etc. Written in C# using Winforms and Json.NET. February 2015.'
 				}
 			];
 			
@@ -65,6 +69,7 @@
 					paths.push(val.titlePath + hoverExt);
 				});
 				paths.push(downloadImgPath + hoverExt);
+				paths.push(blogImgPath + hoverExt);
 				
 				$.each(paths, function(i, val)
 				{
@@ -78,14 +83,17 @@
 				for (var i = 0; i < gProjects.length; ++i)
 				{
 					var p = gProjects[i];
-					finalHtml += '<div class="project">';
+					finalHtml += '<div id="prj' + i + '" class="project">';
 					finalHtml += '<a href="' + p.repo + '">';
-					finalHtml += '<img class="prjtitle" id="prj' + i + '" src="' + p.titlePath + '.png" /></a></br>';
-					finalHtml += '<img class="prjimg" id="prj' + i + '" src="' + p.links[p.index] + '" />';
+					finalHtml += '<img class="prjtitle" id="prjtitle' + i + '" src="' + p.titlePath + '.png" /></a></br>';
+					finalHtml += '<div class="flip"><div class="front">';
+					finalHtml += '<img class="prjimg" id="prjimg' + i + '" src="' + p.links[p.index] + '" />';
+					finalHtml += '</div><div class="back">';
+					finalHtml += '<p class="back-desc">' + p.description + '</p></div></div>';
 					if (p.download.length > 0)
 					{
 						finalHtml += '</br><a href="' + p.download + '">';
-						finalHtml += '<img class="prjdownload" id="' + i + '" src="' + downloadImgPath + imgExt + '" /></a>';
+						finalHtml += '<img class="prjdownload" id="download' + i + '" src="' + downloadImgPath + imgExt + '" /></a>';
 					}
 					finalHtml += '</div>';
 				}
@@ -108,7 +116,7 @@
 				}, 3000);
 				preloadImages();
 			});
-			
+			/*
 			$(document).on('click', 'img.prjimg', function()
 			{
 				var id = $(this).attr("id");
@@ -119,7 +127,7 @@
 				$(this).attr('src', gProjects[gindex].links[index]);
 				gProjects[gindex].index = index;
 			});
-			
+			*/
 			$(document).on('mouseenter', 'img.prjtitle', function()
 			{
 				var id = $(this).attr("id");
@@ -143,11 +151,27 @@
 			{
 				$(this).attr('src', downloadImgPath + imgExt);
 			});
+			
+			$(document).on('click', '#blog', function()
+			{
+				window.open('http://www.thefinalalert.wordpress.com', '_blank');
+			});
+			
+			$(document).on('mouseenter', '#blog', function()
+			{
+				$(this).attr('src', blogImgPath + hoverExt);
+			});
+			
+			$(document).on('mouseleave', '#blog', function()
+			{
+				$(this).attr('src', blogImgPath + imgExt);
+			});
 		</script>
 	</head>
 	<body>
 		<div id="header">
-			<img id="banner" src="./images/header.png" />
+			<img class="banner" src="./images/header.png" /></br></br>
+			<img id="blog" class="banner" src="./images/blog.png" />
 		</div>
 		<div id="main"></div>
 	</body>
