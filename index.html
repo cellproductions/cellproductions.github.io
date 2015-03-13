@@ -22,7 +22,8 @@
 						'./images/KryptaEditorQT/7.png',
 						'./images/KryptaEditorQT/8.png',
 					],
-					index: 0
+					index: 0,
+					download: ''
 				},
 				{
 					name: 'System Command',
@@ -36,7 +37,8 @@
 						'./images/7dRTS/4.png',
 						'./images/7dRTS/5.png'
 					],
-					index: 3
+					index: 3,
+					download: ''
 				},
 				{
 					name: 'Notes Oblitus',
@@ -50,7 +52,8 @@
 						'./images/NotesOblitus/4.png',
 						'./images/NotesOblitus/5.png'
 					],
-					index: 0
+					index: 0,
+					download: 'https://dl.dropboxusercontent.com/u/28551411/NotesOblitus.zip'
 				}
 			];
 			
@@ -62,8 +65,13 @@
 					var p = gProjects[i];
 					finalHtml += '<div class="project">';
 					finalHtml += '<a href="' + p.repo + '">';
-					finalHtml += '<img class="prjtitle" id=prj' + i + ' src="' + p.titlePath + '" /></a></br>';
-					finalHtml += '<img class="prjimg" id=prj' + i + ' src="' + p.links[p.index] + '" />';
+					finalHtml += '<img class="prjtitle" id="prj' + i + '" src="' + p.titlePath + '" /></a></br>';
+					finalHtml += '<img class="prjimg" id="prj' + i + '" src="' + p.links[p.index] + '" />';
+					if (p.download.length > 0)
+					{
+						finalHtml += '</br><a href="' + p.download + '">';
+						finalHtml += '<img class="prjdownload" id="' + i + '" src="./images/download.png" /></a>';
+					}
 					finalHtml += '</div>';
 				}
 				$('#main').html(finalHtml);
@@ -108,6 +116,16 @@
 				var id = $(this).attr("id");
 				var gindex = Number(id.slice(-1));
 				$(this).attr('src', gProjects[gindex].titlePath);
+			});
+			
+			$(document).on('mouseenter', 'img.prjdownload', function()
+			{
+				$(this).attr('src', './images/download_over.png');
+			});
+			
+			$(document).on('mouseleave', 'img.prjdownload', function()
+			{
+				$(this).attr('src', './images/download.png');
 			});
 		</script>
 	</head>

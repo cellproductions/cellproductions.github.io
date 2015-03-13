@@ -43,7 +43,7 @@ body
 	border-bottom-left-radius: 10px;
 	
 	display: table-cell;
-	padding: 16px 16px 16px 16px;
+	padding: 16px 16px 4px 16px;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-size: 28px;
 }
