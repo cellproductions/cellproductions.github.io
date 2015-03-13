@@ -5,13 +5,15 @@
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script>
+			var imgExt = '.png';
+			var hoverExt = '_over' + imgExt;
+			var downloadImgPath = './images/download';
 			var gProjects = 
 			[
 				{
 					name: 'Krypta Editor',
 					repo: 'http://github.com/terrorcell/KryptaEditorQT',
-					titlePath: './images/KryptaEditorQT/title.png',
-					hoverPath: './images/KryptaEditorQT/title_over.png',
+					titlePath: './images/KryptaEditorQT/title',
 					links: [
 						'./images/KryptaEditorQT/1.png',
 						'./images/KryptaEditorQT/2.png',
@@ -28,8 +30,7 @@
 				{
 					name: 'System Command',
 					repo: 'http://github.com/terrorcell/7dRTS',
-					titlePath: './images/7dRTS/title.png',
-					hoverPath: './images/7dRTS/title_over.png',
+					titlePath: './images/7dRTS/title',
 					links: [
 						'./images/7dRTS/1.png',
 						'./images/7dRTS/2.png',
@@ -43,8 +44,7 @@
 				{
 					name: 'Notes Oblitus',
 					repo: 'http://github.com/terrorcell/NotesOblitus',
-					titlePath: './images/NotesOblitus/title.png',
-					hoverPath: './images/NotesOblitus/title_over.png',
+					titlePath: './images/NotesOblitus/title',
 					links: [
 						'./images/NotesOblitus/1.png',
 						'./images/NotesOblitus/2.png',
@@ -57,6 +57,21 @@
 				}
 			];
 			
+			function preloadImages()
+			{
+				var paths = [];
+				$.each(gProjects, function(i, val)
+				{
+					paths.push(val.titlePath + hoverExt);
+				});
+				paths.push(downloadImgPath + hoverExt);
+				
+				$.each(paths, function(i, val)
+				{
+					$('<img />').attr('src', val);
+				});
+			}
+			
 			$(document).ready(function() 
 			{
 				var finalHtml = '';
@@ -65,12 +80,12 @@
 					var p = gProjects[i];
 					finalHtml += '<div class="project">';
 					finalHtml += '<a href="' + p.repo + '">';
-					finalHtml += '<img class="prjtitle" id="prj' + i + '" src="' + p.titlePath + '" /></a></br>';
+					finalHtml += '<img class="prjtitle" id="prj' + i + '" src="' + p.titlePath + '.png" /></a></br>';
 					finalHtml += '<img class="prjimg" id="prj' + i + '" src="' + p.links[p.index] + '" />';
 					if (p.download.length > 0)
 					{
 						finalHtml += '</br><a href="' + p.download + '">';
-						finalHtml += '<img class="prjdownload" id="' + i + '" src="./images/download.png" /></a>';
+						finalHtml += '<img class="prjdownload" id="' + i + '" src="' + downloadImgPath + imgExt + '" /></a>';
 					}
 					finalHtml += '</div>';
 				}
@@ -91,6 +106,7 @@
 						gProjects[gindex].index = index;
 					});
 				}, 3000);
+				preloadImages();
 			});
 			
 			$(document).on('click', 'img.prjimg', function()
@@ -108,24 +124,24 @@
 			{
 				var id = $(this).attr("id");
 				var gindex = Number(id.slice(-1));
-				$(this).attr('src', gProjects[gindex].hoverPath);
+				$(this).attr('src', gProjects[gindex].titlePath + hoverExt);
 			});
 			
 			$(document).on('mouseleave', 'img.prjtitle', function()
 			{
 				var id = $(this).attr("id");
 				var gindex = Number(id.slice(-1));
-				$(this).attr('src', gProjects[gindex].titlePath);
+				$(this).attr('src', gProjects[gindex].titlePath + imgExt);
 			});
 			
 			$(document).on('mouseenter', 'img.prjdownload', function()
 			{
-				$(this).attr('src', './images/download_over.png');
+				$(this).attr('src', downloadImgPath + hoverExt);
 			});
 			
 			$(document).on('mouseleave', 'img.prjdownload', function()
 			{
-				$(this).attr('src', './images/download.png');
+				$(this).attr('src', downloadImgPath + imgExt);
 			});
 		</script>
 	</head>
